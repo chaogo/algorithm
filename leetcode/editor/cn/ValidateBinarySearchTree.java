@@ -1,0 +1,65 @@
+//给你一个二叉树的根节点 node ，判断其是否是一个有效的二叉搜索树。 
+//
+// 有效 二叉搜索树定义如下： 
+//
+// 
+// 节点的左子树只包含 小于 当前节点的数。 
+// 节点的右子树只包含 大于 当前节点的数。 
+// 所有左子树和右子树自身必须也是二叉搜索树。 
+// 
+//
+// 
+//
+// 示例 1： 
+//
+// 
+//输入：node = [2,1,3]
+//输出：true
+// 
+//
+// 示例 2： 
+//
+// 
+//输入：node = [5,1,4,null,null,3,6]
+//输出：false
+//解释：根节点的值是 5 ，但是右子节点的值是 4 。
+// 
+//
+// 
+//
+// 提示： 
+//
+// 
+// 树中节点数目范围在[1, 10⁴] 内 
+// -2³¹ <= Node.val <= 2³¹ - 1 
+// 
+// Related Topics 树 深度优先搜索 二叉搜索树 二叉树 👍 1265 👎 0
+
+
+package editor.cn;
+    
+public class ValidateBinarySearchTree {
+    public static void main (String[] args) {
+        Solution solution = new ValidateBinarySearchTree().new Solution();
+    }
+// TIME:70min
+
+//leetcode submit region begin(Prohibit modification and deletion)
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        // 一个结点的值跟它的所有祖宗结点都有关系，所以判断一个子树是不是平衡时，要同时更新其取值范围
+        if (root == null) return true;
+        return isBST(root.left,Long.MIN_VALUE, root.val) && isBST(root.right, root.val, Long.MAX_VALUE);
+    }
+    
+    private boolean isBST (TreeNode node, long low, long high) {
+        if (node == null) return true;
+        if (low >= node.val || node.val >= high) return false;
+        return isBST(node.left, low, node.val) && isBST(node.right, node.val, high);
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+
+}
+    
